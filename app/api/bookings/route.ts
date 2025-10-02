@@ -152,11 +152,11 @@ export async function POST(request: NextRequest) {
           booking.location?.timezone || undefined
         );
         const patientName = `${booking.firstname} ${booking.lastname}`.trim();
-        const therapistEmail = "omar@montycode.dev"; //booking.therapist?.email;
+        const therapistEmail = booking.therapist?.email;
         const therapistName =
-          booking.therapist?.firstname && booking.therapist?.lastname ?
-            `${booking.therapist.firstname} ${booking.therapist.lastname}`
-          : booking.therapist?.firstname || "Profesional";
+          booking.therapist?.firstname && booking.therapist?.lastname
+            ? `${booking.therapist.firstname} ${booking.therapist.lastname}`
+            : booking.therapist?.firstname || "Profesional";
 
         if (therapistEmail) {
           const { icsContent, reactProps, subject } =
@@ -279,11 +279,11 @@ export async function POST(request: NextRequest) {
         booking.location?.timezone || undefined
       );
       const patientName = `${booking.firstname} ${booking.lastname}`.trim();
-      const therapistEmail = "omar@montycode.dev";
+      const therapistEmail = booking.therapist?.email;
       const therapistName =
-        booking.therapist?.firstname && booking.therapist?.lastname ?
-          `${booking.therapist.firstname} ${booking.therapist.lastname}`
-        : booking.therapist?.firstname || "Terapeuta";
+        booking.therapist?.firstname && booking.therapist?.lastname
+          ? `${booking.therapist.firstname} ${booking.therapist.lastname}`
+          : booking.therapist?.firstname || "Terapeuta";
 
       if (therapistEmail) {
         const { icsContent, reactProps, subject } =

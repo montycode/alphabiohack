@@ -1,4 +1,4 @@
-export const runtime = 'nodejs';
+export const runtime = "nodejs";
 
 import { errorResponse, successResponse } from "@/services/api-errors.service";
 
@@ -18,39 +18,47 @@ interface ContactFormData {
 
 export async function POST(request: Request) {
   const language = await getServerLanguage();
-  
+
   try {
     const body: ContactFormData = await request.json();
     const { name, email, phone, services, message } = body;
 
     // Validaciones básicas
     if (!name || !email || !message) {
-      const { body, status } = errorResponse("validation.required", language, 400);
+      const { body, status } = errorResponse(
+        "validation.required",
+        language,
+        400
+      );
       return NextResponse.json(body, { status });
     }
 
     // Validar formato de email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      const { body, status } = errorResponse("validation.invalidEmail", language, 400);
+      const { body, status } = errorResponse(
+        "validation.invalidEmail",
+        language,
+        400
+      );
       return NextResponse.json(body, { status });
     }
 
     // Determinar el idioma del email
     const emailLanguage = language;
-    
+
     // Configuración del email basada en el idioma
     const emailConfig = {
       es: {
-        subject: 'Nueva consulta de contacto - MyAlphaPulse',
-        from: 'MyAlphaPulse <noreply@myalphapulse.com>',
-        to: [PROFESSIONAL_INFO.EMAIL, 'icasas@myalphapulse.com', "omar@montycode.dev"] // Email de destino
+        subject: "Nueva consulta de contacto - MyAlphaPulse",
+        from: "MyAlphaPulse <noreply@myalphapulse.com>",
+        to: [PROFESSIONAL_INFO.EMAIL], // Email de destino
       },
       en: {
-        subject: 'New Contact Inquiry - MyAlphaPulse',
-        from: 'MyAlphaPulse <noreply@myalphapulse.com>',
-        to: [PROFESSIONAL_INFO.EMAIL, "icasas@myalphapulse.com", "omar@montycode.dev"] // Email de destino
-      }
+        subject: "New Contact Inquiry - MyAlphaPulse",
+        from: "MyAlphaPulse <noreply@myalphapulse.com>",
+        to: [PROFESSIONAL_INFO.EMAIL], // Email de destino
+      },
     } as const;
 
     const config = emailConfig[emailLanguage];
@@ -70,12 +78,9 @@ export async function POST(request: Request) {
       }),
     });
 
-    return NextResponse.json(
-      successResponse(data, "contact.submit.success"),
-    );
-
+    return NextResponse.json(successResponse(data, "contact.submit.success"));
   } catch (error) {
-    console.error('Contact form error:', error);
+    console.error("Contact form error:", error);
     const { body, status } = errorResponse("internal_error", language, 500);
     return NextResponse.json(body, { status });
   }

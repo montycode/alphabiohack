@@ -92,7 +92,7 @@ export const featureFlags: FeatureFlags = {
   // Sistema de terapeuta único
   therapist: {
     singleTherapistMode: true, // Modo de terapeuta único deshabilitado por defecto
-    defaultTherapistId: "cmg4ai8pa0002c9m88xqyglcw", // ID del terapeuta por defecto (se configura cuando se habilita el modo)
+    defaultTherapistId: "cmg8tqpy00002c9xg7ofsotq2", // ID del terapeuta por defecto (se configura cuando se habilita el modo)
   },
 };
 
