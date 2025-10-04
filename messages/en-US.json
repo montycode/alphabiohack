@@ -824,5 +824,83 @@
       "noUpcomingTherapist": "No upcoming appointments",
       "noUpcomingPatient": "No upcoming appointments"
     }
+  },
+  "SpecialtiesUI": {
+    "pageTitle": "Specialties",
+    "pageSubtitle": "Manage your clinic specialties and services",
+    "newSpecialty": "New Specialty",
+    "searchPlaceholder": "Search specialties or services...",
+    "view": "View",
+    "addService": "Add Service",
+    "viewServices": "View Services",
+    "serviceSingular": "service",
+    "servicePlural": "services",
+    "averageLabel": "average",
+    "stats": {
+      "totalSpecialties": "Total Specialties",
+      "totalServices": "Total Services",
+      "totalCost": "Total Cost",
+      "averageCost": "Average Cost",
+      "averageCostDescription": "Per service",
+      "averageDuration": "Average Duration"
+    },
+    "serviceList": {
+      "title": "Services for {specialtyName}"
+    },
+    "empty": {
+      "noSpecialtiesTitle": "No specialties",
+      "noSpecialtiesDescription": "Start by creating your first medical specialty.",
+      "noServicesTitle": "No services in {specialtyName}",
+      "noServicesDescription": "Add services for this specialty."
+    },
+    "forms": {
+      "createSpecialtyTitle": "Create Specialty",
+      "editSpecialtyTitle": "Edit Specialty",
+      "createSpecialtyDescription": "Add a new medical specialty",
+      "editSpecialtyDescription": "Modify the specialty details",
+      "createServiceTitle": "Create Service",
+      "editServiceTitle": "Edit Service",
+      "createServiceDescription": "Add a new service to this specialty",
+      "editServiceDescription": "Modify the service details",
+      "createAction": "Create",
+      "updateAction": "Update",
+      "specialty": {
+        "nameLabel": "Specialty Name",
+        "namePlaceholder": "e.g., Cardiology",
+        "nameDescription": "Unique name to identify the specialty.",
+        "descriptionLabel": "Description (Optional)",
+        "descriptionPlaceholder": "Detailed description of the specialty...",
+        "descriptionHelper": "Additional information about the specialty."
+      },
+      "service": {
+        "descriptionLabel": "Service Description",
+        "descriptionPlaceholder": "e.g., Cardiology consultation",
+        "costLabel": "Cost ($)",
+        "durationLabel": "Duration (min)"
+      }
+    },
+    "deletes": {
+      "deleteServiceTitle": "Delete Service",
+      "deleteServiceDescription": "This action will permanently delete the selected service.",
+      "deleteSpecialtyTitle": "Delete Specialty",
+      "deleteSpecialtyDescription": "This action will permanently delete the specialty and all its associated services.",
+      "confirmDeleteQuestion": "Are you sure you want to delete {name}?",
+      "cannotBeUndone": "This action cannot be undone."
+    },
+    "validation": {
+      "specialty": {
+        "nameRequired": "Name is required",
+        "nameMax": "Name is too long",
+        "descriptionMax": "Description is too long"
+      },
+      "service": {
+        "descriptionRequired": "Description is required",
+        "descriptionMax": "Description is too long",
+        "costMin": "Cost must be greater than or equal to 0",
+        "costMax": "Cost is too high",
+        "durationMin": "Duration must be at least 1 minute",
+        "durationMax": "Maximum duration is 8 hours"
+      }
+    }
   }
 }

@@ -22,6 +22,7 @@ import type { Service, SpecialtyWithServices } from '@/types/api';
 
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
+import { useTranslations } from 'next-intl';
 
 // Props para los componentes presentacionales
 interface SpecialtyCardProps {
@@ -115,6 +116,7 @@ export function SpecialtyCard({
   onAddService,
   isPending = false 
 }: SpecialtyCardProps) {
+  const t = useTranslations('SpecialtiesUI');
   const serviceCount = useMemo(() => specialty.services.length, [specialty.services.length]);
   const totalCost = useMemo(() => 
     specialty.services.reduce((sum, service) => sum + service.cost, 0), 
@@ -153,11 +155,11 @@ export function SpecialtyCard({
             <DropdownMenuContent align="end">
               <DropdownMenuItem onClick={() => onViewServices(specialty)}>
                 <Stethoscope className="mr-2 h-4 w-4" />
-                Ver Servicios
+                {t('viewServices')}
               </DropdownMenuItem>
               <DropdownMenuItem onClick={() => onAddService(specialty.id)}>
                 <Plus className="mr-2 h-4 w-4" />
-                Agregar Servicio
+                {t('addService')}
               </DropdownMenuItem>
               <DropdownMenuItem onClick={() => onEdit(specialty)}>
                 <Edit className="mr-2 h-4 w-4" />
@@ -181,7 +183,7 @@ export function SpecialtyCard({
               <Stethoscope className="h-4 w-4 text-muted-foreground" />
               <span className="text-sm font-medium">{serviceCount}</span>
               <span className="text-xs text-muted-foreground">
-                {serviceCount === 1 ? 'servicio' : 'servicios'}
+                {serviceCount === 1 ? t('serviceSingular') : t('servicePlural')}
               </span>
             </div>
             {averageCost > 0 && (
@@ -190,7 +192,7 @@ export function SpecialtyCard({
                 <span className="text-sm font-medium">
                   ${averageCost.toFixed(0)}
                 </span>
-                <span className="text-xs text-muted-foreground">promedio</span>
+                <span className="text-xs text-muted-foreground">{t('averageLabel')}</span>
               </div>
             )}
           </div>
@@ -201,7 +203,7 @@ export function SpecialtyCard({
             disabled={isPending}
           >
             <ChevronRight className="h-4 w-4 mr-1" />
-            Ver
+            {t('view')}
           </Button>
         </div>
       </CardContent>
@@ -216,6 +218,7 @@ export function ServiceCard({
   onDelete,
   isPending = false 
 }: ServiceCardProps) {
+  const t = useTranslations('SpecialtiesUI');
   const formatDuration = useMemo(() => {
     const hours = Math.floor(service.duration / 60);
     const minutes = service.duration % 60;
@@ -262,14 +265,14 @@ export function ServiceCard({
             <DropdownMenuContent align="end">
               <DropdownMenuItem onClick={() => onEdit(service)}>
                 <Edit className="mr-2 h-4 w-4" />
-                Editar
+              Editar
               </DropdownMenuItem>
               <DropdownMenuItem 
                 onClick={() => onDelete(service.id)}
                 className="text-destructive focus:text-destructive"
               >
                 <Trash2 className="mr-2 h-4 w-4" />
-                Eliminar
+              Eliminar
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -289,6 +292,7 @@ export function SpecialtyList({
   onAddService,
   isPending = false 
 }: SpecialtyListProps) {
+  const t = useTranslations('SpecialtiesUI');
   if (loading) {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -304,14 +308,14 @@ export function SpecialtyList({
       <div className="text-center py-12">
         <Stethoscope className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
         <h3 className="text-lg font-medium text-foreground mb-2">
-          No hay especialidades
+          {t('empty.noSpecialtiesTitle')}
         </h3>
         <p className="text-muted-foreground mb-4">
-          Comienza creando tu primera especialidad médica.
+          {t('empty.noSpecialtiesDescription')}
         </p>
         <Button onClick={() => onAddService('')} disabled={isPending}>
           <Plus className="h-4 w-4 mr-2" />
-          Crear Especialidad
+          {t('newSpecialty')}
         </Button>
       </div>
     );
@@ -344,6 +348,7 @@ export function ServiceList({
   onAddService,
   isPending = false 
 }: ServiceListProps) {
+  const t = useTranslations('SpecialtiesUI');
   if (loading) {
     return (
       <div className="space-y-4">
@@ -359,14 +364,14 @@ export function ServiceList({
       <div className="text-center py-12">
         <Stethoscope className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
         <h3 className="text-lg font-medium text-foreground mb-2">
-          No hay servicios en {specialtyName}
+          {t('empty.noServicesTitle', { specialtyName })}
         </h3>
         <p className="text-muted-foreground mb-4">
-          Agrega servicios para esta especialidad.
+          {t('empty.noServicesDescription')}
         </p>
         <Button onClick={onAddService} disabled={isPending}>
           <Plus className="h-4 w-4 mr-2" />
-          Agregar Servicio
+          {t('addService')}
         </Button>
       </div>
     );
@@ -376,11 +381,11 @@ export function ServiceList({
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <h3 className="text-lg font-semibold text-foreground">
-          Servicios de {specialtyName}
+          {t('serviceList.title', { specialtyName })}
         </h3>
         <Button onClick={onAddService} disabled={isPending}>
           <Plus className="h-4 w-4 mr-2" />
-          Agregar Servicio
+          {t('addService')}
         </Button>
       </div>
       <div className="space-y-3">

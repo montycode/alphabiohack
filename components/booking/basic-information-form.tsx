@@ -107,7 +107,7 @@ export function BasicInformationForm() {
               value={data.basicInfo.phone}
               onChange={handlePhoneChange}
               placeholder={t('phone')}
-              defaultCountry="MX"
+              defaultCountry="US"
             />
             <p className="text-sm text-muted-foreground leading-relaxed">
               {t('phoneConsentText')}

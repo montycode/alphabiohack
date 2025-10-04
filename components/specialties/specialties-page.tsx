@@ -18,6 +18,7 @@ import { ServiceList, SpecialtyList, StatsCard } from '@/components/specialties/
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useSpecialties } from '@/contexts/specialties-context';
+import { useTranslations } from 'next-intl';
 
 // Tipos para los formularios
 interface ServiceFormData {
@@ -57,6 +58,8 @@ interface FormStates {
 
 // Componente principal de la página de Specialties
 export function SpecialtiesPage() {
+  const t = useTranslations('SpecialtiesUI');
+  const tCommon = useTranslations('Common');
   const {
     state,
     isPending,
@@ -244,7 +247,7 @@ export function SpecialtiesPage() {
               disabled={isPending}
             >
               <ArrowLeft className="h-4 w-4 mr-2" />
-              Volver
+              {tCommon('back')}
             </Button>
             <div>
               <h1 className="text-2xl font-bold text-foreground">
@@ -260,19 +263,19 @@ export function SpecialtiesPage() {
             disabled={isPending}
           >
             <Plus className="h-4 w-4 mr-2" />
-            Agregar Servicio
+            {t('addService')}
           </Button>
         </div>
 
         {/* Estadísticas de la especialidad */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <StatsCard
-            title="Total Servicios"
+            title={t('stats.totalServices')}
             value={currentSpecialty.services.length}
             icon={Stethoscope}
           />
           <StatsCard
-            title="Costo Promedio"
+            title={t('stats.averageCost')}
             value={`$${currentSpecialty.services.length > 0 
               ? (currentSpecialty.services.reduce((sum, s) => sum + s.cost, 0) / currentSpecialty.services.length).toFixed(0)
               : '0'
@@ -280,7 +283,7 @@ export function SpecialtiesPage() {
             icon={DollarSign}
           />
           <StatsCard
-            title="Duración Promedio"
+            title={t('stats.averageDuration')}
             value={currentSpecialty.services.length > 0 
               ? `${Math.round(currentSpecialty.services.reduce((sum, s) => sum + s.duration, 0) / currentSpecialty.services.length)}m`
               : '0m'
@@ -312,10 +315,10 @@ export function SpecialtiesPage() {
           onOpenChange={(open) => setFormStates(prev => ({ ...prev, serviceForm: { ...prev.serviceForm, open } }))}
           onSubmit={formStates.serviceForm.mode === 'create' ? handleCreateService : handleUpdateService}
           initialData={formStates.serviceForm.data}
-          title={formStates.serviceForm.mode === 'create' ? 'Crear Servicio' : 'Editar Servicio'}
+          title={formStates.serviceForm.mode === 'create' ? t('forms.createServiceTitle') : t('forms.editServiceTitle')}
           description={formStates.serviceForm.mode === 'create' 
-            ? 'Agrega un nuevo servicio a esta especialidad'
-            : 'Modifica los datos del servicio'
+            ? t('forms.createServiceDescription')
+            : t('forms.editServiceDescription')
           }
           isPending={isPending}
         />
@@ -324,8 +327,8 @@ export function SpecialtiesPage() {
           open={formStates.deleteDialog.open && formStates.deleteDialog.type === 'service'}
           onOpenChange={(open) => setFormStates(prev => ({ ...prev, deleteDialog: { ...prev.deleteDialog, open } }))}
           onConfirm={handleDeleteService}
-          title="Eliminar Servicio"
-          description="Esta acción eliminará permanentemente el servicio seleccionado."
+          title={t('deletes.deleteServiceTitle')}
+          description={t('deletes.deleteServiceDescription')}
           itemName={formStates.deleteDialog.name || ''}
           isPending={isPending}
         />
@@ -339,9 +342,9 @@ export function SpecialtiesPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Especialidades</h1>
+          <h1 className="text-3xl font-bold text-foreground">{t('pageTitle')}</h1>
           <p className="text-muted-foreground">
-            Gestiona las especialidades y servicios de tu clínica
+            {t('pageSubtitle')}
           </p>
         </div>
         <Button
@@ -350,32 +353,32 @@ export function SpecialtiesPage() {
           className="w-full sm:w-auto"
         >
           <Plus className="h-4 w-4 mr-2" />
-          Nueva Especialidad
+          {t('newSpecialty')}
         </Button>
       </div>
 
       {/* Estadísticas generales */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Especialidades"
+          title={t('stats.totalSpecialties')}
           value={stats.totalSpecialties}
           icon={Stethoscope}
         />
         <StatsCard
-          title="Total Servicios"
+          title={t('stats.totalServices')}
           value={stats.totalServices}
           icon={Stethoscope}
         />
         <StatsCard
-          title="Costo Total"
+          title={t('stats.totalCost')}
           value={`$${stats.totalCost.toFixed(0)}`}
           icon={DollarSign}
         />
         <StatsCard
-          title="Costo Promedio"
+          title={t('stats.averageCost')}
           value={`$${stats.averageCost.toFixed(0)}`}
           icon={DollarSign}
-          description="Por servicio"
+          description={t('stats.averageCostDescription')}
         />
       </div>
 
@@ -385,7 +388,7 @@ export function SpecialtiesPage() {
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
-              placeholder="Buscar especialidades o servicios..."
+              placeholder={t('searchPlaceholder')}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="pl-10"
@@ -401,7 +404,7 @@ export function SpecialtiesPage() {
           <CardContent className="p-4">
             <div className="flex items-center gap-2 text-destructive">
               <AlertCircle className="h-4 w-4" />
-              <span className="font-medium">Error:</span>
+              <span className="font-medium">{tCommon('error')}:</span>
               <span>{state.error}</span>
             </div>
           </CardContent>
@@ -431,10 +434,10 @@ export function SpecialtiesPage() {
         onOpenChange={(open) => setFormStates(prev => ({ ...prev, specialtyForm: { ...prev.specialtyForm, open } }))}
         onSubmit={formStates.specialtyForm.mode === 'create' ? handleCreateSpecialty : handleUpdateSpecialty}
         initialData={formStates.specialtyForm.data}
-        title={formStates.specialtyForm.mode === 'create' ? 'Crear Especialidad' : 'Editar Especialidad'}
+        title={formStates.specialtyForm.mode === 'create' ? t('forms.createSpecialtyTitle') : t('forms.editSpecialtyTitle')}
         description={formStates.specialtyForm.mode === 'create' 
-          ? 'Agrega una nueva especialidad'
-          : 'Modifica los datos de la especialidad'
+          ? t('forms.createSpecialtyDescription')
+          : t('forms.editSpecialtyDescription')
         }
         isPending={isPending}
       />
@@ -443,8 +446,8 @@ export function SpecialtiesPage() {
         open={formStates.deleteDialog.open && formStates.deleteDialog.type === 'specialty'}
         onOpenChange={(open) => setFormStates(prev => ({ ...prev, deleteDialog: { ...prev.deleteDialog, open } }))}
         onConfirm={handleDeleteSpecialty}
-        title="Eliminar Especialidad"
-        description="Esta acción eliminará permanentemente la especialidad y todos sus servicios asociados."
+        title={t('deletes.deleteSpecialtyTitle')}
+        description={t('deletes.deleteSpecialtyDescription')}
         itemName={formStates.deleteDialog.name || ''}
         isPending={isPending}
       />

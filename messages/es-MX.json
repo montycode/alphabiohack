@@ -180,7 +180,7 @@
   },
   "Locations": {
     "title": "Ubicaciones",
-    "description": "Gestiona las ubicaciones de tu clínica o consultorio",
+    "description": "Gestiona tus ubicaciones",
     "manageLocations": "Gestionar Ubicaciones",
     "addNewClinic": "Agregar Nueva Ubicación",
     "addFirstLocation": "Agregar Primera Ubicación",
@@ -813,5 +813,83 @@
     "addressDetails": "10000 N 31st Ave Phoenix, <br />AZ  85051 United States, <br />Building C - Suite 126",
     "phoneNumber": "+1 (915) 867 5506",
     "emailAddress": "alphabiohack@gmail.com"
+  },
+  "SpecialtiesUI": {
+    "pageTitle": "Especialidades",
+    "pageSubtitle": "Gestiona las especialidades y servicios de tu clínica",
+    "newSpecialty": "Nueva Especialidad",
+    "searchPlaceholder": "Buscar especialidades o servicios...",
+    "view": "Ver",
+    "addService": "Agregar Servicio",
+    "viewServices": "Ver Servicios",
+    "serviceSingular": "servicio",
+    "servicePlural": "servicios",
+    "averageLabel": "promedio",
+    "stats": {
+      "totalSpecialties": "Total Especialidades",
+      "totalServices": "Total Servicios",
+      "totalCost": "Costo Total",
+      "averageCost": "Costo Promedio",
+      "averageCostDescription": "Por servicio",
+      "averageDuration": "Duración Promedio"
+    },
+    "serviceList": {
+      "title": "Servicios de {specialtyName}"
+    },
+    "empty": {
+      "noSpecialtiesTitle": "No hay especialidades",
+      "noSpecialtiesDescription": "Comienza creando tu primera especialidad médica.",
+      "noServicesTitle": "No hay servicios en {specialtyName}",
+      "noServicesDescription": "Agrega servicios para esta especialidad."
+    },
+    "forms": {
+      "createSpecialtyTitle": "Crear Especialidad",
+      "editSpecialtyTitle": "Editar Especialidad",
+      "createSpecialtyDescription": "Agrega una nueva especialidad",
+      "editSpecialtyDescription": "Modifica los datos de la especialidad",
+      "createServiceTitle": "Crear Servicio",
+      "editServiceTitle": "Editar Servicio",
+      "createServiceDescription": "Agrega un nuevo servicio a esta especialidad",
+      "editServiceDescription": "Modifica los datos del servicio",
+      "createAction": "Crear",
+      "updateAction": "Actualizar",
+      "specialty": {
+        "nameLabel": "Nombre de la Especialidad",
+        "namePlaceholder": "Ej: Cardiología",
+        "nameDescription": "Nombre único para identificar la especialidad.",
+        "descriptionLabel": "Descripción (Opcional)",
+        "descriptionPlaceholder": "Descripción detallada de la especialidad...",
+        "descriptionHelper": "Información adicional sobre la especialidad."
+      },
+      "service": {
+        "descriptionLabel": "Descripción del Servicio",
+        "descriptionPlaceholder": "Ej: Consulta de cardiología",
+        "costLabel": "Costo ($)",
+        "durationLabel": "Duración (min)"
+      }
+    },
+    "deletes": {
+      "deleteServiceTitle": "Eliminar Servicio",
+      "deleteServiceDescription": "Esta acción eliminará permanentemente el servicio seleccionado.",
+      "deleteSpecialtyTitle": "Eliminar Especialidad",
+      "deleteSpecialtyDescription": "Esta acción eliminará permanentemente la especialidad y todos sus servicios asociados.",
+      "confirmDeleteQuestion": "¿Estás seguro de que quieres eliminar {name}?",
+      "cannotBeUndone": "Esta acción no se puede deshacer."
+    },
+    "validation": {
+      "specialty": {
+        "nameRequired": "El nombre es requerido",
+        "nameMax": "El nombre es muy largo",
+        "descriptionMax": "La descripción es muy larga"
+      },
+      "service": {
+        "descriptionRequired": "La descripción es requerida",
+        "descriptionMax": "La descripción es muy larga",
+        "costMin": "El costo debe ser mayor o igual a 0",
+        "costMax": "El costo es muy alto",
+        "durationMin": "La duración debe ser al menos 1 minuto",
+        "durationMax": "La duración máxima es 8 horas"
+      }
+    }
   }
 }

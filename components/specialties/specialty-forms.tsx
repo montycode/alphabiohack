@@ -24,19 +24,20 @@ import { Input } from '@/components/ui/input';
 import { Loader2 } from 'lucide-react';
 import { Textarea } from '@/components/ui/textarea';
 import { useForm } from 'react-hook-form';
+import { useTranslations } from 'next-intl';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 // Esquemas de validación
 const specialtySchema = z.object({
-  name: z.string().min(1, 'El nombre es requerido').max(100, 'El nombre es muy largo'),
-  description: z.string().max(500, 'La descripción es muy larga').optional(),
+  name: z.string().min(1, 'SpecialtiesUI.validation.specialty.nameRequired').max(100, 'SpecialtiesUI.validation.specialty.nameMax'),
+  description: z.string().max(500, 'SpecialtiesUI.validation.specialty.descriptionMax').optional(),
 });
 
 const serviceSchema = z.object({
-  description: z.string().min(1, 'La descripción es requerida').max(200, 'La descripción es muy larga'),
-  cost: z.number().min(0, 'El costo debe ser mayor o igual a 0').max(10000, 'El costo es muy alto'),
-  duration: z.number().min(1, 'La duración debe ser al menos 1 minuto').max(480, 'La duración máxima es 8 horas'),
+  description: z.string().min(1, 'SpecialtiesUI.validation.service.descriptionRequired').max(200, 'SpecialtiesUI.validation.service.descriptionMax'),
+  cost: z.number().min(0, 'SpecialtiesUI.validation.service.costMin').max(10000, 'SpecialtiesUI.validation.service.costMax'),
+  duration: z.number().min(1, 'SpecialtiesUI.validation.service.durationMin').max(480, 'SpecialtiesUI.validation.service.durationMax'),
 });
 
 // Tipos para los formularios
@@ -82,6 +83,8 @@ export function SpecialtyForm({
   description,
   isPending = false,
 }: SpecialtyFormProps) {
+  const t = useTranslations('SpecialtiesUI');
+  const tCommon = useTranslations('Common');
   const form = useForm<SpecialtyFormData>({
     resolver: zodResolver(specialtySchema),
     defaultValues: initialData || {
@@ -119,16 +122,16 @@ export function SpecialtyForm({
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Nombre de la Especialidad</FormLabel>
+                  <FormLabel>{t('forms.specialty.nameLabel')}</FormLabel>
                   <FormControl>
                     <Input 
-                      placeholder="Ej: Cardiología" 
+                      placeholder={t('forms.specialty.namePlaceholder')} 
                       {...field} 
                       disabled={isPending}
                     />
                   </FormControl>
                   <FormDescription>
-                    Nombre único para identificar la especialidad.
+                    {t('forms.specialty.nameDescription')}
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -139,10 +142,10 @@ export function SpecialtyForm({
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Descripción (Opcional)</FormLabel>
+                  <FormLabel>{t('forms.specialty.descriptionLabel')}</FormLabel>
                   <FormControl>
                     <Textarea
-                      placeholder="Descripción detallada de la especialidad..."
+                      placeholder={t('forms.specialty.descriptionPlaceholder')}
                       className="resize-none"
                       rows={3}
                       {...field}
@@ -150,7 +153,7 @@ export function SpecialtyForm({
                     />
                   </FormControl>
                   <FormDescription>
-                    Información adicional sobre la especialidad.
+                    {t('forms.specialty.descriptionHelper')}
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -163,11 +166,11 @@ export function SpecialtyForm({
                 onClick={handleCancel}
                 disabled={isPending}
               >
-                Cancelar
+                {tCommon('cancel')}
               </Button>
               <Button type="submit" disabled={isPending}>
                 {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                {initialData ? 'Actualizar' : 'Crear'}
+                {initialData ? t('forms.updateAction') : t('forms.createAction')}
               </Button>
             </DialogFooter>
           </form>
@@ -187,6 +190,8 @@ export function ServiceForm({
   description,
   isPending = false,
 }: ServiceFormProps) {
+  const t = useTranslations('SpecialtiesUI');
+  const tCommon = useTranslations('Common');
   const form = useForm<ServiceFormData>({
     resolver: zodResolver(serviceSchema),
     defaultValues: initialData || {
@@ -239,16 +244,16 @@ export function ServiceForm({
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Descripción del Servicio</FormLabel>
+                  <FormLabel>{t('forms.service.descriptionLabel')}</FormLabel>
                   <FormControl>
                     <Input 
-                      placeholder="Ej: Consulta de cardiología" 
+                      placeholder={t('forms.service.descriptionPlaceholder')} 
                       {...field} 
                       disabled={isPending}
                     />
                   </FormControl>
                   <FormDescription>
-                    Descripción clara del servicio.
+                    
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -260,7 +265,7 @@ export function ServiceForm({
                 name="cost"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Costo ($)</FormLabel>
+                    <FormLabel>{t('forms.service.costLabel')}</FormLabel>
                     <FormControl>
                       <Input 
                         type="number"
@@ -281,7 +286,7 @@ export function ServiceForm({
                 name="duration"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Duración (min)</FormLabel>
+                    <FormLabel>{t('forms.service.durationLabel')}</FormLabel>
                     <FormControl>
                       <Input 
                         type="number"
@@ -308,11 +313,11 @@ export function ServiceForm({
                 onClick={handleCancel}
                 disabled={isPending}
               >
-                Cancelar
+                {tCommon('cancel')}
               </Button>
               <Button type="submit" disabled={isPending}>
                 {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                {initialData ? 'Actualizar' : 'Crear'}
+                {initialData ? t('forms.updateAction') : t('forms.createAction')}
               </Button>
             </DialogFooter>
           </form>
@@ -342,6 +347,8 @@ export function DeleteConfirmDialog({
   itemName,
   isPending = false,
 }: DeleteConfirmDialogProps) {
+  const t = useTranslations('SpecialtiesUI');
+  const tCommon = useTranslations('Common');
   const handleConfirm = async () => {
     try {
       await onConfirm();
@@ -360,8 +367,9 @@ export function DeleteConfirmDialog({
         </DialogHeader>
         <div className="py-4">
           <p className="text-sm text-muted-foreground">
-            ¿Estás seguro de que quieres eliminar <strong>{itemName}</strong>?
-            Esta acción no se puede deshacer.
+            {t('deletes.confirmDeleteQuestion', { name: itemName })}
+            {" "}
+            {t('deletes.cannotBeUndone')}
           </p>
         </div>
         <DialogFooter>
@@ -370,7 +378,7 @@ export function DeleteConfirmDialog({
             onClick={() => onOpenChange(false)}
             disabled={isPending}
           >
-            Cancelar
+            {tCommon('cancel')}
           </Button>
           <Button 
             variant="destructive" 
@@ -378,7 +386,7 @@ export function DeleteConfirmDialog({
             disabled={isPending}
           >
             {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            Eliminar
+            {tCommon('delete')}
           </Button>
         </DialogFooter>
       </DialogContent>
