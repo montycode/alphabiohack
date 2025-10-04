@@ -1,6 +1,6 @@
 /**
  * Componente Presentacional del Formulario de Contacto
- * 
+ *
  * Este componente solo se encarga de la presentación y usa el hook useContactForm
  * para manejar toda la lógica de negocio.
  */
@@ -14,26 +14,21 @@ import { useContactForm } from "@/hooks/use-contact-form";
 import { useTranslations } from "next-intl";
 
 interface ContactFormProps {
-  className?: string;
+  readonly className?: string;
 }
 
 export function ContactForm({ className }: ContactFormProps) {
-  const t = useTranslations('Contact');
-  const {
-    formData,
-    isLoading,
-    handleInputChange,
-    handleSubmit,
-    isFormValid,
-  } = useContactForm();
+  const t = useTranslations("Contact");
+  const { formData, isLoading, handleInputChange, handleSubmit, isFormValid } =
+    useContactForm();
 
   return (
-    <form onSubmit={handleSubmit} className={`space-y-6 ${className || ''}`}>
+    <form onSubmit={handleSubmit} className={`space-y-6 ${className || ""}`}>
       <FormField
         id="name"
         name="name"
-        label={t('form.name')}
-        placeholder={t('form.namePlaceholder')}
+        label={t("form.name")}
+        placeholder={t("form.namePlaceholder")}
         value={formData.name}
         onChange={handleInputChange}
         required
@@ -43,9 +38,9 @@ export function ContactForm({ className }: ContactFormProps) {
       <FormField
         id="email"
         name="email"
-        label={t('form.email')}
+        label={t("form.email")}
         inputType="email"
-        placeholder={t('form.emailPlaceholder')}
+        placeholder={t("form.emailPlaceholder")}
         value={formData.email}
         onChange={handleInputChange}
         required
@@ -55,9 +50,9 @@ export function ContactForm({ className }: ContactFormProps) {
       <FormField
         id="phone"
         name="phone"
-        label={t('form.phone')}
+        label={t("form.phone")}
         inputType="tel"
-        placeholder={t('form.phonePlaceholder')}
+        placeholder={t("form.phonePlaceholder")}
         value={formData.phone}
         onChange={handleInputChange}
       />
@@ -66,8 +61,8 @@ export function ContactForm({ className }: ContactFormProps) {
       <FormField
         id="services"
         name="services"
-        label={t('form.services')}
-        placeholder={t('form.servicesPlaceholder')}
+        label={t("form.services")}
+        placeholder={t("form.servicesPlaceholder")}
         value={formData.services}
         onChange={handleInputChange}
       />
@@ -76,8 +71,8 @@ export function ContactForm({ className }: ContactFormProps) {
       <FormField
         id="message"
         name="message"
-        label={t('form.message')}
-        placeholder={t('form.messagePlaceholder')}
+        label={t("form.message")}
+        placeholder={t("form.messagePlaceholder")}
         value={formData.message}
         onChange={handleInputChange}
         required
@@ -93,10 +88,10 @@ export function ContactForm({ className }: ContactFormProps) {
         {isLoading ? (
           <>
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-            {t('form.submitting')}
+            {t("form.submitting")}
           </>
         ) : (
-          t('form.submit')
+          t("form.submit")
         )}
       </Button>
     </form>

@@ -73,15 +73,15 @@ export function useContactForm(): UseContactFormReturn {
 
       if (result.success) {
         toast.success(
-          result.successCode ?
-            tReq(result.successCode)
-          : tReq("contact.submit.success")
+          result.successCode
+            ? tReq(result.successCode)
+            : tReq("contact.submit.success")
         );
         resetForm();
       } else {
         toast.error(tErrors(result.errorCode));
       }
-    } catch (error) {
+    } catch {
       toast.error(tReq("contact.submit.error"));
     } finally {
       setIsLoading(false);

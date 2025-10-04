@@ -25,6 +25,14 @@ export const PROFESSIONAL_INFO = {
   BRAND_NAME: "Alphabiohack",
   EMAIL: "alphabiohack@gmail.com",
   PHONE: "+19158675506",
+  ADDRESS:
+    "10000 N 31st Ave Phoenix, AZ 85051 United States Building C - Suite 126",
+  SOCIAL_MEDIA: {
+    FACEBOOK: "https://www.facebook.com/alphabiohack",
+    TWITTER: "https://www.twitter.com/alphabiohack",
+    LINKEDIN: "https://www.linkedin.com/company/alphabiohack",
+    INSTAGRAM: "https://www.instagram.com/alphabiohack",
+  },
 };
 /**
  * Configuración del terapeuta por defecto

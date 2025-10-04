@@ -724,9 +724,9 @@
       "callNow": "Call Now",
       "sendEmail": "Send Email"
     },
-    "addressDetails": "Av. Revolución 1234, Zona Centro<br />Tijuana, Baja California, Mexico",
-    "phoneNumber": "+52 664 123 4567",
-    "emailAddress": "icasas@myalphapulse.com"
+    "addressDetails": "10000 N 31st Ave Phoenix, <br />AZ  85051 United States, <br />Building C - Suite 126",
+    "phoneNumber": "+1 (915) 867 5506",
+    "emailAddress": "alphabiohack@gmail.com"
   },
   "Dashboard": {
     "fromYesterday": "From Yesterday",
