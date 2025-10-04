@@ -117,6 +117,7 @@ export function SpecialtyCard({
   isPending = false 
 }: SpecialtyCardProps) {
   const t = useTranslations('SpecialtiesUI');
+  const tCommon = useTranslations('Common');
   const serviceCount = useMemo(() => specialty.services.length, [specialty.services.length]);
   const totalCost = useMemo(() => 
     specialty.services.reduce((sum, service) => sum + service.cost, 0), 
@@ -163,14 +164,14 @@ export function SpecialtyCard({
               </DropdownMenuItem>
               <DropdownMenuItem onClick={() => onEdit(specialty)}>
                 <Edit className="mr-2 h-4 w-4" />
-                Editar
+                {tCommon('edit')}
               </DropdownMenuItem>
               <DropdownMenuItem 
                 onClick={() => onDelete(specialty.id)}
                 className="text-destructive focus:text-destructive"
               >
                 <Trash2 className="mr-2 h-4 w-4" />
-                Eliminar
+                {tCommon('delete')}
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -218,7 +219,7 @@ export function ServiceCard({
   onDelete,
   isPending = false 
 }: ServiceCardProps) {
-  const t = useTranslations('SpecialtiesUI');
+  const tCommon = useTranslations('Common');
   const formatDuration = useMemo(() => {
     const hours = Math.floor(service.duration / 60);
     const minutes = service.duration % 60;
@@ -265,14 +266,14 @@ export function ServiceCard({
             <DropdownMenuContent align="end">
               <DropdownMenuItem onClick={() => onEdit(service)}>
                 <Edit className="mr-2 h-4 w-4" />
-              Editar
+              {tCommon('edit')}
               </DropdownMenuItem>
               <DropdownMenuItem 
                 onClick={() => onDelete(service.id)}
                 className="text-destructive focus:text-destructive"
               >
                 <Trash2 className="mr-2 h-4 w-4" />
-              Eliminar
+              {tCommon('delete')}
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
