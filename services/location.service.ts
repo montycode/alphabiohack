@@ -197,10 +197,18 @@ export const updateLocation = async (id: string, data: UpdateLocationData) => {
 // Eliminar ubicación
 export const deleteLocation = async (id: string) => {
   try {
-    const location = await prisma.location.delete({
-      where: { id },
+    // Borrado en cascada manual para cumplir con FKs (Bookings no tiene onDelete: Cascade)
+    const result = await prisma.$transaction(async (tx) => {
+      // 1) Eliminar bookings ligados a la ubicación
+      await tx.booking.deleteMany({ where: { locationId: id } });
+
+      // 2) Eliminar la ubicación
+      //    BusinessHours, TimeSlots, DateOverrides y OverrideTimeSlots tienen onDelete: Cascade
+      //    y se eliminarán automáticamente al borrar Location
+      const deletedLocation = await tx.location.delete({ where: { id } });
+      return deletedLocation;
     });
-    return location;
+    return result;
   } catch (error) {
     console.error("Error deleting location:", error);
     throw error;

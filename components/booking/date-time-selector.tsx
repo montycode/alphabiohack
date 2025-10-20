@@ -456,7 +456,8 @@ export function DateTimeSelector() {
                             <p className="text-sm font-semibold text-foreground">
                               {data.selectedTime ? format.dateTime(new Date(`2000-01-01T${data.selectedTime}`), {
                                 hour: 'numeric',
-                                minute: 'numeric'
+                                minute: 'numeric',
+                                timeZone: PST_TZ
                               }) : ''}
                             </p>
                           </div>

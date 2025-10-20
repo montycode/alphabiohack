@@ -110,7 +110,7 @@ export function LocationForm({
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="text-red-600 hover:text-red-700 hover:bg-red-50 dark:text-red-400 dark:hover:text-red-300 dark:hover:bg-red-900/20 p-2 h-8 w-8"
+                    className="text-red-600 hover:text-red-700 hover:bg-red-50 dark:text-red-400 dark:hover:text-red-300 dark:hover:bg-red-900/20 p-2 h-8 w-8 cursor-pointer"
                     onClick={(e) => {
                       e.stopPropagation();
                       handleDelete();

@@ -102,6 +102,8 @@ export async function DELETE(
       return NextResponse.json(body, { status });
     }
 
+    // Permitir eliminación aunque existan reservas: el servicio hace borrado en cascada manual
+
     await deleteLocation(id);
     return NextResponse.json(
       successResponse({ id }, "locations.delete.success")

@@ -1,6 +1,16 @@
 "use client";
 
 import { AlertCircle, Building2, MapPin, Plus } from "lucide-react";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { Card, CardContent } from "@/components/ui/card";
 import { useLocationOperations, useLocations } from "@/hooks";
 
@@ -13,10 +23,13 @@ import { useTranslations } from "next-intl";
 
 export function LocationsPage() {
   const t = useTranslations("Locations");
+  const tc = useTranslations("Common");
   const { locations, refetch, loading: locationsLoading, error: locationsError } = useLocations();
   const { createLocation, updateLocation, deleteLocation, loading, error } = useLocationOperations();
   const [expandedLocation, setExpandedLocation] = useState<string | null>(null);
   const [isAddingNew, setIsAddingNew] = useState(false);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [locationIdToDelete, setLocationIdToDelete] = useState<string | null>(null);
 
   const handleToggleExpanded = (locationId: string) => {
     setExpandedLocation(expandedLocation === locationId ? null : locationId);
@@ -54,15 +67,20 @@ export function LocationsPage() {
     }
   };
 
-  const handleDeleteLocation = async (id: string) => {
-    const confirmed = window.confirm(t("confirmDelete"));
-    if (confirmed) {
-      const success = await deleteLocation(id);
-      if (success) {
-        await refetch();
-        handleCancel();
-      }
+  const handleDeleteLocation = (id: string) => {
+    setLocationIdToDelete(id);
+    setDeleteDialogOpen(true);
+  };
+
+  const confirmDelete = async () => {
+    if (!locationIdToDelete) return;
+    const success = await deleteLocation(locationIdToDelete);
+    if (success) {
+      await refetch();
+      handleCancel();
     }
+    setDeleteDialogOpen(false);
+    setLocationIdToDelete(null);
   };
 
   const handleRetry = () => {
@@ -189,7 +207,7 @@ export function LocationsPage() {
                 onCancel={handleCancel}
                 onSave={handleSave}
                 onSubmit={(formData) => handleUpdateLocation(location.id, formData)}
-                onDelete={() => handleDeleteLocation(location.id)}
+                onDelete={async () => { handleDeleteLocation(location.id) }}
                 loading={loading}
               />
             ))
@@ -217,6 +235,24 @@ export function LocationsPage() {
         )}
       </div>
     </div>
+
+    {/* Delete confirmation dialog */}
+    <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>{t("confirmDelete")}</AlertDialogTitle>
+          <AlertDialogDescription>
+            {t("confirmDeleteDescription")}
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel className="cursor-pointer" disabled={loading}>{tc("cancel")}</AlertDialogCancel>
+          <AlertDialogAction className="cursor-pointer" onClick={confirmDelete} disabled={loading}>
+            {tc("delete")}
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
     </AsyncWrapper>
   );
 }

@@ -188,6 +188,7 @@
     "addingNew": "Agregando nueva ubicación",
     "noLocations": "No hay ubicaciones",
     "noLocationsDescription": "Comienza agregando tu primera ubicación para gestionar horarios y servicios",
+    "errorTitle": "Error",
     "errorLoadingLocations": "Error al cargar las ubicaciones. Por favor, intenta nuevamente.",
     "saving": "Guardando...",
     "clinic": "Ubicación",
@@ -216,7 +217,8 @@
     "saveChanges": "Guardar Cambios",
     "create": "Crear",
     "update": "Actualizar",
-    "confirmDelete": "¿Estás seguro de que quieres eliminar esta ubicación?"
+    "confirmDelete": "¿Estás seguro de que quieres eliminar esta ubicación?",
+    "confirmDeleteDescription": "Esto eliminará permanentemente esta ubicación y todos los datos relacionados: horarios, overrides, time slots y todas las citas ligadas. Esta acción no se puede deshacer."
   },
   "Dropzone": {
     "uploadFiles": "Subir archivos",

@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Clock, MapPin, Plus, Stethoscope, User } from "lucide-react"
 import { useFormatter, useTranslations } from "next-intl"
 import { useLocations, useServices, useSpecialties, useTherapist } from "@/hooks"
+import { PST_TZ } from "@/lib/utils/timezone"
 
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -64,7 +65,8 @@ export function BasicInformationForm() {
     return format.dateTime(data.selectedDate, {
       weekday: "long",
       day: "numeric",
-      month: "long"
+      month: "long",
+      timeZone: PST_TZ
     })
   }
 
@@ -82,13 +84,15 @@ export function BasicInformationForm() {
     const startTime12 = format.dateTime(startTime, {
       hour: "numeric",
       minute: "2-digit",
-      hour12: true
+      hour12: true,
+      timeZone: PST_TZ
     })
     
     const endTime12 = format.dateTime(endTime, {
       hour: "numeric",
       minute: "2-digit",
-      hour12: true
+      hour12: true,
+      timeZone: PST_TZ
     })
     
     return `${startTime12} - ${endTime12}`
